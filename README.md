@@ -25,3 +25,15 @@ Suy ra: bl = 8 => al = 8
 >FLAG: 88
 
 ![Result](https://github.com/thune-work/Release_1/blob/main/Image/Lucky/Result.PNG)
+
+# CrackMe_ASM
+[File](https://github.com/thune-work/Release_1/tree/main/File/CrackMe_ASM): CrackMe_ASM: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), statically linked, not stripped
+
+Yêu cầu nhập vào giá trị cho biến var. Các byte của biến flag lần lược được gán giá trị rồi so sánh với chuỗi trong biến var vừa nhập. Nếu bằng nhau thì thành công mà không bằng nhau thì không thành công.
+
+![IDA1](https://github.com/thune-work/Release_1/blob/main/Image/CrackMe_ASM/IDA1.PNG)
+![IDA2](https://github.com/thune-work/Release_1/blob/main/Image/CrackMe_ASM/IDA2.PNG)
+
+>FLAG: S3CrE+Fl4G!
+
+![Result](https://github.com/thune-work/Release_1/blob/main/Image/CrackMe_ASM/Result.PNG)
