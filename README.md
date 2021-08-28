@@ -26,7 +26,7 @@ Suy ra: bl = 8 => al = 8
 
 ![Result](https://github.com/thune-work/Release_1/blob/main/Image/Lucky/Result.PNG)
 
-# CrackMe_ASM
+# 3. CrackMe_ASM
 [File](https://github.com/thune-work/Release_1/tree/main/File/CrackMe_ASM): CrackMe_ASM: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), statically linked, not stripped
 
 Yêu cầu nhập vào giá trị cho biến var. Các byte của biến flag lần lược được gán giá trị rồi so sánh với chuỗi trong biến var vừa nhập. Nếu bằng nhau thì thành công mà không bằng nhau thì không thành công.
@@ -37,3 +37,25 @@ Yêu cầu nhập vào giá trị cho biến var. Các byte của biến flag l�
 >FLAG: S3CrE+Fl4G!
 
 ![Result](https://github.com/thune-work/Release_1/blob/main/Image/CrackMe_ASM/Result.PNG)
+
+# 4. hello
+[File]: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, not stripped
+
+![IDA1](https://github.com/thune-work/Release_1/blob/main/Image/hello/IDA1.PNG)
+
+Đầu tiên, chúng ta nhập chuỗi username, sau đó chuỗi welcome bằng "Hello " + username. Password nhập vào lưu trong buf.
+
+![IDA3](https://github.com/thune-work/Release_1/blob/main/Image/hello/IDA3.PNG)
+
+Ở đây, chúng ta thấy welcome[v4 + 5] + 5 == byte_402073[v4]. Chúng ta xem thử byte_402073 rốt cuộc là cái qq gì.
+
+![IDA2](https://github.com/thune-work/Release_1/blob/main/Image/hello/IDA2.PNG)
+
+Nếu như byte_402073 ở vị trí 0x402073 thì chuỗi buf đang lưu password ở vị trí 0x402074. Suy ra v4 = 1 sẽ là byte đầu tiên của chuỗi buf. Và password ở đây cũng chỉ có 1 ký tự dựa vào dòng lệnh if (!--v4).
+
+Vậy welcome[6] + 5 = buf[0] => ký tự đầu tiên của username + 5 bằng password. Nhập username là thune => password: y
+
+>USERNAME: thune FLAG: y
+
+![Result](https://github.com/thune-work/Release_1/blob/main/Image/hello/Result.PNG)
+
