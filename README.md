@@ -59,3 +59,18 @@ Vậy welcome[6] + 5 = buf[0] => ký tự đầu tiên của username + 5 bằng
 
 ![Result](https://github.com/thune-work/Release_1/blob/main/Image/hello/Result.PNG)
 
+# 5. nasm
+[File](https://github.com/thune-work/Release_1/tree/main/File/nasm): ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, not stripped
+
+![IDA1](https://github.com/thune-work/Release_1/blob/main/Image/nasm/IDA1.PNG)
+
+Flag được nhập vào sẽ được lưu tại địa chỉ 0x402031 sau đó đem đi so sánh 0xB ký tự đầu với chuỗi passwd. Chuỗi passwd bao gồm các ký tự sau:
+
+![IDA2](https://github.com/thune-work/Release_1/blob/main/Image/nasm/IDA2.PNG)
+
+passwd = supersecret
+
+> FLAG: supersecretx, với x là 1 chuỗi ngẫu nhiên
+
+![Result](https://github.com/thune-work/Release_1/blob/main/Image/nasm/Result.PNG)
+
