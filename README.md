@@ -135,8 +135,11 @@ dword_4030C8 = _ byteswap_ulong((((byte_4030B8[7] + 16 * byte_4030B8[6]) ^ 0xCD)
 Do mỗi phần tử của mảng byte_4030B8 có 4 bits nên khi lấy byte_4030B8[i] * 16 + byte_4030B8[i+1] sẽ thành một byte. _ byteswap_ulong là hàm có đầu ra là một số viết theo little-endian. Tóm lại là như sau:
 
 s[0] ^ 0x12 + 52 = dword_4030C8[3]
+
 s[1] ^ 0x56 + 120 = dword_4030C8[2]
+
 s[2] ^ 0x90 - 85 = dword_4030C8[1]
+
 s[3] ^ 0xCD - 17 = dword_4030C8[0]
 
 Với s[i] là byte do 4 bit của phần tử byte_4030B8[i] và phần tử byte_4030B8[i+1] tạo thành.
@@ -150,8 +153,11 @@ Ta thấy rằng giá trị của dword_4030C8 được lưu ở thanh ghi ebx n
 ![Value2.PNG](https://github.com/thune-work/Release_1/blob/main/Image/clone/value2.PNG)
 
 s[0] ^ 0x12 + 0x34 = 0x0f
+
 s[1] ^ 0x56 + 0x78 = 0xc6
+
 s[2] ^ 0x90 + 0xab = 0x5c
+
 s[3] ^ 0xcd + 0xef = 0x8b
 
 Dựa vào mã assembly của các phép tính này để suy ngược lại ra s[i].
@@ -161,9 +167,13 @@ Dựa vào mã assembly của các phép tính này để suy ngược lại ra 
 1 byte s[0] sẽ được lưu trong ebx, sau đó ta chỉ lấy thanh ghi bl (8 bits của thanh ghi ebx) xor với 0x12, rồi cộng với 0x34. Lúc này giá trị có thể quá lớn và vượt qua 8 bit nên and với 0xff để lấy chỉ 8 bit. Ta suy ngược lại cách tính s[0] như sau: (0x0f - 0x34)^0x12. Nhưng vì các phép tính + hoặc trừ có thể sinh ra số âm nên ta phải cộng thêm với 256, đồng thời do chỉ cộng thanh ghi bl với 0x34, tức chỉ lấy 8 bit cộng với 0x34, nên khi suy ngược lại phải thêm and 0xff để lấy chỉ 8 bit. 
 
 Cuối cùng,
+
 s[0] = ((0x0f - 0x34 + 256)&0xff)^0x12
+
 s[1] = ((0xc6 - 0x78 + 256)&0xff)^0x56
+
 s[2] = ((0x5c - 0xab + 256)&0xff)^0x90
+
 s[3] = ((0x8b - 0xef + 256)&0xff)^0xcd
 
 > Ta được Serial = C9182151 với User = "thune1"
