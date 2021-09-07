@@ -39,7 +39,7 @@ Yêu cầu nhập vào giá trị cho biến var. Các byte của biến flag l�
 ![Result](https://github.com/thune-work/Release_1/blob/main/Image/CrackMe_ASM/Result.PNG)
 
 # 4. hello
-[File]: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, not stripped
+[File](https://github.com/thune-work/Release_1/tree/main/File/hello): ELF 64-bit LSB executable, x86-64, version 1 (SYSV), statically linked, not stripped
 
 ![IDA1](https://github.com/thune-work/Release_1/blob/main/Image/hello/IDA1.PNG)
 
@@ -73,4 +73,19 @@ passwd = supersecret
 > FLAG: supersecretx, với x là 1 chuỗi ngẫu nhiên
 
 ![Result](https://github.com/thune-work/Release_1/blob/main/Image/nasm/Result.PNG)
+
+# 6. Clone
+[File](https://github.com/thune-work/Release_1/tree/main/File/clone): PE32 executable (GUI) Intel 80386, for MS Window
+
+![image]()
+
+Đầu tiên, chúng ta kiểm tra thử list strings của bài này:
+
+![strings]()
+
+Chúng ta để ý có các chuỗi "Well done! Now make good tutorial :)", "Bravo!" có thể là các chuỗi thông báo đã nhập đúng User và Serial.
+
+Tiếp theo chúng ta xem thử các chuỗi này nằm ở hàm nào và hàm đó liên quan tới những hàm nào.
+
+![graph.PNG]()
 
