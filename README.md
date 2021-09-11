@@ -179,3 +179,26 @@ s[3] = ((0x8b - 0xef + 256)&0xff)^0xcd
 > Ta được Serial = C9182151 với User = "thune1"
 
 ![done.PNG](https://github.com/thune-work/Release_1/blob/main/Image/clone/done.PNG)
+
+# 7. crack_001
+[File](https://github.com/thune-work/Release_1/tree/main/File/crack_001): PE32 executable (GUI) Intel 80386, for MS Windows
+
+Kiểm tra các chuỗi có trong chương trình, thấy có chuỗi "Register complite!!!", xem thử các hàm liên quan đến chuỗi này.
+
+![graph](https://github.com/thune-work/Release_1/blob/main/Image/crack_001/Graph.PNG)
+
+Ở hàm DialogFunc tại dòng 20, 21 có 2 câu lệnh để lấy độ dài chuỗi nhập vào lưu tại String và byte_403014. Tương tử câu trên, đặt breakpoint và debug sẽ biết được String là PASS, byte_403014 là NAME. v6 là độ dài của NAME và 3 <= v6, v6 = dword_403025.
+
+![DialogFunc.PNG](https://github.com/thune-work/Release_1/blob/main/Image/crack_001/DialogFunc.PNG)
+
+Ở hàm sub_4010FE, mỗi ký tự của NAME, nếu không phải thuộc {Z,z,9} sẽ được cộng với 1 và trở thành byte cuối của v1 (v1 có 2 bytes), còn nếu thuộc {Z,z,9} thì sẽ trừ 1 rồi cộng 1 trực tiếp trở thành byte cuối của v1. Còn byte đầu của v1 sẽ được cộng với 97 + v0. 
+
+![value](https://github.com/thune-work/Release_1/blob/main/Image/crack_001/value.PNG)
+
+Xét điều kiện if ở câu lệnh 22, giá trị v1 ở mỗi vòng lặp sẽ được so sánh với 2 bytes của PASS[2* v0]. Do giá trị HIBYTE(v1) ở mỗi vòng lặp luôn bằng 0x00. Do đó, ở mỗi vòng giá trị của HIBYTE(v1) chính là giá trị của v0 + 97 => được các byte cuối trong 2 byte của PASS[2* v0] là 97, 98, 99,... với v0 thuộc {0, 1, 2,...}. Còn LOBYTE(v1) phải bằng byte cuối của PASS[v0* 2] trừ đi 1, với v0 thuộc {0, 1, 2,...}, nếu kết quả {Y,y,8} thì được cộng thêm 1.
+
+Giả sử NAME = "gm0". Ở vòng lặp 1, v1 = 0x0067, HIBYTE(v1) = 0x00 + 0x97 = 0x97, LOBYTE(v1) = v1 + 1 = 0x67 + 1 = 0x68. Tương tự, ta sẽ được PASS tương ứng.
+
+> NAME = "gm0", PASS = "hanb1c"
+
+![result](https://github.com/thune-work/Release_1/blob/main/Image/crack_001/Result.PNG)
