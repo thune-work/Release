@@ -202,3 +202,42 @@ Giả sử NAME = "gm0". Ở vòng lặp 1, v1 = 0x0067, HIBYTE(v1) = 0x00 + 0x9
 > NAME = "gm0", PASS = "hanb1c"
 
 ![result](https://github.com/thune-work/Release_1/blob/main/Image/crack_001/Result.PNG)
+
+# 8.get_the_password
+[File](https://github.com/thune-work/Release_1/blob/main/File/get_the_password/crackme1.EXE): PE32 executable (console) Intel 80386, for MS Windows
+
+Chuỗi password được lưu tại unk_402010 và được gán cho biến v2. 
+
+![IDA(1)](https://github.com/thune-work/Release_1/blob/main/Image/get_the_password/IDA(1).PNG)
+
+Tất cả các dòng lệnh sau đó đều sẽ kiểm tra từng phần tử nếu thoả câu lệnh if trong khi case = v0 (v0 giữ vai trò là chỉ số của phần tử trong chuỗi) thì giảm v1 xuống 1 đơn vị, nếu không thoả thì tăng lên. Có tổng cộng 10 lần cộng 1 đơn vị nếu các phần tử của chuỗi không thoả tất cả các câu lệnh if đặt ra. Mà sau khi tăng hoặc giảm v1 qua 10 lần, nếu giá trị v1 = 10 thì nhập password thành công. Do đó, ở tất cả các lần kiểm tra các câu lệnh if kiểm tra phần tử của chuỗi nhập vào đều phải không thoả.
+
+![IDA(2)](https://github.com/thune-work/Release_1/blob/main/Image/get_the_password/IDA(2).PNG)
+
+```
+password[1] > 0x47
+
+password[2] < 109
+
+password[3] = 86
+
+password[4] >= 0x66
+
+password[5] <= 0x33
+
+password[6] > 0x79
+
+password[7] >= 56
+
+password[8] < 78
+
+password[9] != 82
+
+password[10] = 50
+```
+
+Nhập chuỗi password = "PaVi0z9I32" có các kí tự thoả các điều kiện trên.
+
+![Result.PNG](https://github.com/thune-work/Release_1/blob/main/Image/get_the_password/Result.PNG)
+
+ 
